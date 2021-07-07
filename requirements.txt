@@ -1,0 +1,63 @@
+
+The manager can edit visitors exit time
+The manager can full CRUD ResidentialUnit
+The manager can view past logs (default 3 mths)
+
+Models Schema
+
+ResidentialUnit
+  -> Block No (String)
+  -> Unit No (String)
+  -> Occupant Name (String)
+  -> Contact Number (String)
+
+  hasOne -> Resident
+  hasMany -> Visitor -> Through -> Visits
+
+--------------------------------------------------------
+
+# Resident
+#   -> Occupant Name (String)
+#   -> Contact Number (String)
+
+#   belongsTo -> ResidentialUnit
+
+# --------------------------------------------------------
+
+Visitor
+  -> Name (String)
+  -> Contact Number (String)
+  -> NRICLast3Digits (String)
+
+  belongsTo -> Visits
+
+--------------------------------------------------------
+
+Visits
+  -> EnteredTime (DateTime NOW)
+  -> ExitTime (DateTime)
+
+  belongsTo -> Visitor
+  belongsTo -> ResidentialUnit
+
+  (IF CURRENT ENTER DATE FALLS WITHIN BAND)
+    TRIGGER ALERT 8 PPL MAX
+
+
+TODO 
+
+Manager Auth
+Manager CRUD for ResidentialUnit
+Visit Form for Visitors to create Visits 
+Admin Panel for Data Management
+
+
+
+QNs 
+  -> SHOULD MANAGER BE ALLOWED TO LOGIN OR IS IT AN OPEN SYSTEM THAT ONLY CONDO MGMT GET TO SEE?
+
+  -> SHOULD MANAGER SEE ALL VISIT LOGS OR ONLY UP TO 3 MONTHS
+
+  -> MAKE SENSE TO ADD ALL OCCUPANTS OR JUST ONE? SHOULD VISITS SPECIFY THE LOCATION?
+
+
