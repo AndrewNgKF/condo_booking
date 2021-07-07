@@ -13,12 +13,12 @@ class CreateResidentialUnitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('residentialunits', function (Blueprint $table) {
+        Schema::create('residential_units', function (Blueprint $table) {
             $table->id();
             $table->string('block_number');
             $table->string('unit_number');
             $table->string('occupant_name');
-            $table->string('contact_number');
+            $table->string('occupant_contact');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateResidentialUnitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('residentialunits');
+        Schema::dropIfExists('residential_units');
     }
 }
