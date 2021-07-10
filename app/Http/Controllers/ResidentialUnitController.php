@@ -54,9 +54,12 @@ class ResidentialUnitController extends Controller
      * @param  \App\Models\ResidentialUnit  $residentialUnit
      * @return \Illuminate\Http\Response
      */
-    public function show(ResidentialUnit $residentialUnit)
+    public function show($id)
     {
-        return view('residentialunits.show', compact('residentialunits'));
+        // dd(['ResidentialUnit' => $residentialUnit]);
+        $residentialUnit = ResidentialUnit::findOrFail($id);
+        // dd($residentialUnit);
+        return view('residentialunits.show', compact('residentialUnit'));
     }
 
     /**
@@ -65,9 +68,11 @@ class ResidentialUnitController extends Controller
      * @param  \App\Models\ResidentialUnit  $residentialUnit
      * @return \Illuminate\Http\Response
      */
-    public function edit(ResidentialUnit $residentialUnit)
+    public function edit($id)
     {
-        return view('residentialunits.edit', compact('residentialunits'));
+        $residentialUnit = ResidentialUnit::findOrFail($id);
+        // dd($residentialUnit);
+        return view('residentialunits.edit', compact('residentialUnit'));
     }
 
     /**
@@ -77,8 +82,9 @@ class ResidentialUnitController extends Controller
      * @param  \App\Models\ResidentialUnit  $residentialUnit
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ResidentialUnit $residentialUnit)
+    public function update(Request $request, $id)
     {
+        // dd($request);
         $request->validate([
             'block_number' => 'required',
             'unit_number' => 'required',
@@ -86,7 +92,10 @@ class ResidentialUnitController extends Controller
             'occupant_contact' => 'required',
         ]);
 
+        $residentialUnit = ResidentialUnit::findOrFail($id);
+
         $residentialUnit->update($request->all());
+
 
         return redirect()->route('residentialunits.index')->with('success', 'Residential unit updated successfully.');
     }
@@ -97,8 +106,9 @@ class ResidentialUnitController extends Controller
      * @param  \App\Models\ResidentialUnit  $residentialUnit
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ResidentialUnit $residentialUnit)
+    public function destroy($id)
     {
+        $residentialUnit = ResidentialUnit::findOrFail($id);
         $residentialUnit->delete();
 
         return redirect()->route('residentialunits.index')

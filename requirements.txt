@@ -11,7 +11,7 @@ ResidentialUnit
   -> Occupant Name (String)
   -> Contact Number (String)
 
-  hasOne -> Resident
+  # hasOne -> Resident
   hasMany -> Visitor -> Through -> Visits
 
 --------------------------------------------------------
