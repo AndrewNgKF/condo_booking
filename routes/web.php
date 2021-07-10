@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResidentialUnitController;
+use App\Http\Controllers\VisitorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,5 +24,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::resource('residentialunits', ResidentialUnitController::class);
+Route::resource('visitors', VisitorController::class);
+
 
 require __DIR__ . '/auth.php';

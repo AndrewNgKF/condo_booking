@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Enter a new visit</h2>
+                <h2>Search for a Visitor</h2>
             </div>
             {{-- <div class="pull-right">
                 <a class="btn btn-primary" href="{{ route('residentialunits.index') }}"> Back</a>

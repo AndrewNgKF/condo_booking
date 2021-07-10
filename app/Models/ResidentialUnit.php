@@ -11,4 +11,9 @@ class ResidentialUnit extends Model
     protected $fillable = [
         'block_number', 'unit_number', 'occupant_name', 'occupant_contact'
     ];
+
+    public function visits()
+    {
+        return $this->hasMany(Visit::class);
+    }
 }
