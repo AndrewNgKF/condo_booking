@@ -23,7 +23,7 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 
 
 ## Condo Booking
-A simple application to manage condo visits
+A simple application for condo visit management
 
 
 Clone the repository
