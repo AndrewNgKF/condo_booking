@@ -72,7 +72,7 @@
 
         <div class="mb-4">
             <button type="submit"
-                class="w-full bg-blue-500 px-4 py-3 rounded text-gray-200 font-semibold text-xl hover:bg-blue-600 transition duration-200 each-in-out">Submit</button>
+                class="w-full bg-blue-500 px-4 py-2 rounded text-gray-200 font-semibold text-xl hover:bg-blue-600 transition duration-200 each-in-out">Submit</button>
         </div>
 
     </form>

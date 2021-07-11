@@ -2,12 +2,7 @@
 @section('content')
 
     <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2>Edit Visit Details</h2>
-            </div>
-
-        </div>
+        <div class="mx-16 py-4 px-8 text-black text-xl font-bold border-b border-grey-500">Edit Visit Details</div>
     </div>
 
     @if ($errors->any())
@@ -20,21 +15,22 @@
         </div>
     @endif
 
-    <form action="{{ route('visitors.update', $visit->id) }}" method="POST">
+    <form action="{{ route('visitors.update', $visit->id) }}" method="POST" class="mx-auto px-16">
         @csrf
 
         @method('PUT')
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Exit Date & Time: </strong>
-                    <input type="datetime-local" name="exit_time" value="{{ $visit->exit_date }}" class="form-control"
-                        placeholder="Sign out time">
+                    <div class="block text-grey-darker text-sm font-bold mb-2">Exit Date & Time: </div>
+                    <input type="datetime-local" class="border rounded w-full py-2 px-3 text-grey-darker" name="exit_time"
+                        value="{{ $visit->exit_date }}" class="form-control" placeholder="Sign out time">
                 </div>
             </div>
 
-            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="mt-4">
+                <button type="submit"
+                    class="w-full bg-blue-500 px-4 py-2 rounded text-gray-200 font-semibold hover:bg-blue-600 transition duration-200 each-in-out">Submit</button>
             </div>
         </div>
     </form>

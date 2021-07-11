@@ -19,24 +19,87 @@ class VisitorController extends Controller
      */
     public function index(Request $request)
     {
-        // dd($request->term);
+        // dd($request->query);
         $visitor = Visitor::query();
-        $visits = new Visit;
+        $visits = Visit::query();
+        $unit = ResidentialUnit::query();
 
         if (request('query')) {
-            $visitor->where('NRICLast3Digits', 'LIKE', '%' . request('query') . '%')->get();
-            // dd($visitor->first()->visitor_name);
-
-            if ($visitor->exists()) {
-                $visits = DB::table('visits')
-                    ->where('visitor_id', 'LIKE', "%{$visitor->first()->id}%")
-                    ->join('visitors', 'visitors.id', '=', 'visits.visitor_id')
-                    ->join('residential_units', 'residential_units.id', '=', 'visits.residential_unit_id')
-                    ->select('visits.*', 'visitors.*', 'residential_units.*')
-                    ->get();
-                // dd($visits);
-                return view('visitors.index', compact('visits'));
+            if (strlen(request('query')) != 3) {
+                $unit->where('unit_number', 'LIKE', '%' . request('query') . '%')->get();
+                // dd($unit->first());
+                if ($unit->exists()) {
+                    echo "Searching via UNIT";
+                    $visits = DB::table('visits')
+                        ->select(
+                            'visits.*',
+                            'residential_units.occupant_name AS occupant_name',
+                            'residential_units.block_number AS block_number',
+                            'residential_units.unit_number AS unit_number',
+                            'residential_units.occupant_contact AS occupant_contact',
+                            'visitors.visitor_name AS visitor_name',
+                            'visitors.NRICLast3Digits AS NRICLast3Digits',
+                        )
+                        // ->select()
+                        // ->select('visits.id AS id', 'visits.created_at AS created_at', 'visits.exit_time AS exit_time', 'visitors.*', 'residential_units.*')
+                        ->where('residential_unit_id', 'LIKE', "%{$unit->first()->id}%")
+                        ->join('visitors', 'visitors.id', '=', 'visits.visitor_id')
+                        ->join('residential_units', 'residential_units.id', '=', 'visits.residential_unit_id')
+                        ->get();
+                    // dd($visits);
+                    // echo $visits;
+                    return view('visitors.index', compact('visits'));
+                } else {
+                    echo "No unit found, searching via NRIC";
+                    //if no unit number found, take it as NRICLast3Digits
+                    $visitor->where('NRICLast3Digits', 'LIKE', '%' . request('query') . '%')->get();
+                    if ($visitor->exists()) {
+                        $visits = DB::table('visits')
+                            ->select(
+                                'visits.*',
+                                'residential_units.occupant_name AS occupant_name',
+                                'residential_units.block_number AS block_number',
+                                'residential_units.unit_number AS unit_number',
+                                'residential_units.occupant_contact AS occupant_contact',
+                                'visitors.visitor_name AS visitor_name',
+                                'visitors.NRICLast3Digits AS NRICLast3Digits',
+                            )
+                            ->where('visitor_id', 'LIKE', "%{$visitor->first()->id}%")
+                            ->join('visitors', 'visitors.id', '=', 'visits.visitor_id')
+                            ->join('residential_units', 'residential_units.id', '=', 'visits.residential_unit_id')
+                            // ->select('visits.*', 'visitors.*', 'residential_units.*')
+                            ->get();
+                        // dd($visits);
+                        return view('visitors.index', compact('visits'));
+                    } else {
+                        return view('visitors.index');
+                    }
+                }
             } else {
+                echo "Searching via NRIC";
+                $visitor->where('NRICLast3Digits', 'LIKE', '%' . request('query') . '%')->get();
+                // dd($visitor->first()->visitor_name);
+
+                if ($visitor->exists()) {
+                    $visits = DB::table('visits')
+                        ->select(
+                            'visits.*',
+                            'residential_units.occupant_name AS occupant_name',
+                            'residential_units.block_number AS block_number',
+                            'residential_units.unit_number AS unit_number',
+                            'residential_units.occupant_contact AS occupant_contact',
+                            'visitors.visitor_name AS visitor_name',
+                            'visitors.NRICLast3Digits AS NRICLast3Digits',
+                        )
+                        ->where('visitor_id', 'LIKE', "%{$visitor->first()->id}%")
+                        ->join('visitors', 'visitors.id', '=', 'visits.visitor_id')
+                        ->join('residential_units', 'residential_units.id', '=', 'visits.residential_unit_id')
+                        ->get();
+                    // dd($visits);
+                    return view('visitors.index', compact('visits'));
+                } else {
+                    return view('visitors.index');
+                }
             }
         }
 

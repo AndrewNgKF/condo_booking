@@ -15,17 +15,20 @@ class CreateVisitsTable extends Migration
     {
         Schema::create('visits', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('visitor_id');
-            $table->foreign('visitor_id')
-                ->references('id')
-                ->on('visitors')
-                ->onDelete('cascade');
 
-            $table->unsignedBigInteger('residential_unit_id');
-            $table->foreign('residential_unit_id')
-                ->references('id')
-                ->on('residential_units')
-                ->onDelete('cascade');
+            $table->foreignId('visitor_id')->constrained();
+            $table->foreignId('residential_unit_id')->constrained();
+            // $table->unsignedBigInteger('visitor_id');
+            // $table->foreign('visitor_id')
+            //     ->references('id')
+            //     ->on('visitors')
+            //     ->onDelete('cascade');
+
+            // $table->unsignedBigInteger('residential_unit_id');
+            // $table->foreign('residential_unit_id')
+            //     ->references('id')
+            //     ->on('residential_units')
+            //     ->onDelete('cascade');
 
             $table->timestamp('entered_time')->useCurrent();
             $table->timestamp('exit_time')->nullable();

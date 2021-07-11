@@ -65,5 +65,11 @@ TO MAKE IT MORE COMPLETE
   -> DETAILED UX AND USERFLOW
   -> PROPER STYLING & TAILWIND/BOOTSTRAP
   -> EDGE CASES, CSRF TOKENS, SQL INJECTIONS, VALIDATIONS, PAGINATION ETC
+  -> ELOQUENT CODE CLEANUP ON VISITOR LOG SEARCH
 
 would have set the timezone to UTC, Use a wider-browser compatable date picker
+
+
+Asc order of visits / res units
+Search by unit number for logs
+Show only up to 3 mths ago

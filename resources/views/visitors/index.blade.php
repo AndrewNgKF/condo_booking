@@ -46,6 +46,7 @@
 
             @foreach ($visits as $visit)
                 {{-- {{ $visit->id }} --}}
+                {{-- {{ data_get($visit, 't-in-min') }} --}}
                 <tr class="hover:bg-grey-lighter">
 
                     <td class="py-4 px-6 border-b border-grey-light">{{ $visit->visitor_name }}</td>
@@ -74,7 +75,7 @@
             @endforeach
         </table>
     @else
-        <h2>No entry found </h2>
+        {{-- <h2>No entry found </h2> --}}
     @endif
 
 
