@@ -1,16 +1,18 @@
 @extends('layouts.app')
 @section('content')
 
-    <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2>Enter a new visit</h2>
-            </div>
-            {{-- <div class="pull-right">
+
+    <div class="mx-auto text-center">
+
+        <div class="mx-16 py-12 text-black text-4xl font-bold ">Visitors Entry Log Form
+        </div>
+
+
+        {{-- <div class="pull-right">
                 <a class="btn btn-primary" href="{{ route('residentialunits.index') }}"> Back</a>
             </div> --}}
-        </div>
     </div>
+
 
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
@@ -28,49 +30,50 @@
         </div>
     @endif
 
-    <form action="{{ route('visitors.store') }}" method="POST">
+    <form action="{{ route('visitors.store') }}" method="POST" class="mx-auto px-16">
         @csrf
 
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Visitor's Name:</strong>
-                    <input value="{{ old('visitor_name') }}" type="text" name="visitor_name" class="form-control"
-                        placeholder="Visitor's Name">
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Visitor's last 3 digits of NRIC:</strong>
-                    <input value="{{ old('NRICLast3Digits') }}" type="text" name="NRICLast3Digits" class="form-control"
-                        placeholder="Visitor's last 3 digits of NRIC">
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Visitor Contact Number:</strong>
-                    <input value="{{ old('visitor_contact') }}" type="text" name="visitor_contact" class="form-control"
-                        placeholder="Occupant Contact Number">
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Resident's Block Number:</strong>
-                    <input value="{{ old('block_number') }}" type="text" name="block_number" class="form-control"
-                        placeholder="Block Number">
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Resident's Unit Number:</strong>
-                    <input value="{{ old('unit_number') }}" type="text" name="unit_number" class="form-control"
-                        placeholder="Visiting Resident Unit Number">
-                </div>
-            </div>
 
-            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="mb-4">
+            <div class="form-group">
+                <div class="block text-grey-darker text-xl font-bold mb-2">Visitor's Name:</div>
+                <input class="border rounded w-full py-2 px-3 text-grey-darker" value="{{ old('visitor_name') }}"
+                    type="text" name="visitor_name" class="form-control" placeholder="Visitor's Name">
             </div>
         </div>
+        <div class="mb-4">
+            <div class="form-group">
+                <div class="block text-grey-darker text-xl font-bold mb-2">Visitor's last 3 digits of NRIC:</div>
+                <input class="border rounded w-full py-2 px-3 text-grey-darker" value="{{ old('NRICLast3Digits') }}"
+                    type="text" name="NRICLast3Digits" class="form-control" placeholder="Visitor's last 3 digits of NRIC">
+            </div>
+        </div>
+        <div class="mb-4">
+            <div class="form-group">
+                <div class="block text-grey-darker text-xl font-bold mb-2">Visitor Contact Number:</div>
+                <input class="border rounded w-full py-2 px-3 text-grey-darker" value="{{ old('visitor_contact') }}"
+                    type="text" name="visitor_contact" class="form-control" placeholder="Occupant Contact Number">
+            </div>
+        </div>
+        <div class="mb-4">
+            <div class="form-group">
+                <div class="block text-grey-darker text-xl font-bold mb-2">Resident's Block Number:</div>
+                <input class="border rounded w-full py-2 px-3 text-grey-darker" value="{{ old('block_number') }}"
+                    type="text" name="block_number" class="form-control" placeholder="Block Number">
+            </div>
+        </div>
+        <div class="mb-4">
+            <div class="form-group">
+                <div class="block text-grey-darker text-xl font-bold mb-2">Resident's Unit Number:</div>
+                <input class="border rounded w-full py-2 px-3 text-grey-darker" value="{{ old('unit_number') }}"
+                    type="text" name="unit_number" class="form-control" placeholder="Visiting Resident Unit Number">
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <button type="submit"
+                class="w-full bg-blue-500 px-4 py-3 rounded text-gray-200 font-semibold text-xl hover:bg-blue-600 transition duration-200 each-in-out">Submit</button>
+        </div>
+
     </form>
 @endsection

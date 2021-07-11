@@ -23,8 +23,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::resource('residentialunits', ResidentialUnitController::class);
-Route::resource('visitors', VisitorController::class);
+Route::resource('residentialunits', ResidentialUnitController::class)->middleware('auth');
+Route::resource('visitors', VisitorController::class)->middleware('auth');
 
 
 require __DIR__ . '/auth.php';

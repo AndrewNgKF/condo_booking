@@ -7,6 +7,8 @@ use App\Models\ResidentialUnit;
 use App\Models\Visit;
 use Illuminate\Http\Request;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\DB;
+
 
 class VisitorController extends Controller
 {
@@ -15,9 +17,30 @@ class VisitorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // DONT NEED TO SHOW ALL VISITORS YET
+        // dd($request->term);
+        $visitor = Visitor::query();
+        $visits = new Visit;
+
+        if (request('query')) {
+            $visitor->where('NRICLast3Digits', 'LIKE', '%' . request('query') . '%')->get();
+            // dd($visitor->first()->visitor_name);
+
+            if ($visitor->exists()) {
+                $visits = DB::table('visits')
+                    ->where('visitor_id', 'LIKE', "%{$visitor->first()->id}%")
+                    ->join('visitors', 'visitors.id', '=', 'visits.visitor_id')
+                    ->join('residential_units', 'residential_units.id', '=', 'visits.residential_unit_id')
+                    ->select('visits.*', 'visitors.*', 'residential_units.*')
+                    ->get();
+                // dd($visits);
+                return view('visitors.index', compact('visits'));
+            } else {
+            }
+        }
+
+        return view('visitors.index', compact('visitor'));
     }
 
     /**
@@ -133,9 +156,12 @@ class VisitorController extends Controller
      * @param  \App\Models\Visitor  $visitor
      * @return \Illuminate\Http\Response
      */
-    public function edit(Visitor $visitor)
+    public function edit($id)
     {
-        //
+        // dd($id);
+        $visit = Visit::findOrFail($id);
+
+        return view('visitors.edit', compact('visit'));
     }
 
     /**
@@ -145,9 +171,17 @@ class VisitorController extends Controller
      * @param  \App\Models\Visitor  $visitor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Visitor $visitor)
+    public function update(Request $request, $id)
     {
         //
+        // dd($id);
+        $request->validate([
+            'exit_time' => 'required',
+        ]);
+        $visit = Visit::findOrFail($id);
+        // dd($visit);
+        $visit->update($request->all());
+        return redirect()->route('visitors.index')->with('success', 'Exit time updated successfully.');
     }
 
     /**

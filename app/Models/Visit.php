@@ -9,7 +9,7 @@ class Visit extends Model
 {
   use HasFactory;
   protected $fillable = [
-    'residential_unit_id', 'visitor_id'
+    'residential_unit_id', 'visitor_id', 'exit_time'
   ];
 
   public function visitor()
